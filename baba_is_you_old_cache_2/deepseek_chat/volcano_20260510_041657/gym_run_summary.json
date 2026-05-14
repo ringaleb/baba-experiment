@@ -1,0 +1,150 @@
+{
+  "settings": {
+    "game_name": "baba_is_you",
+    "config_root_dir": "gamingagent/configs",
+    "model_name": "deepseek-chat",
+    "harness": true,
+    "multiagent_arg": "single",
+    "num_runs": 5,
+    "observation_mode": "text",
+    "max_memory": 10,
+    "use_reflection": true,
+    "use_perception": false,
+    "use_summary": false,
+    "token_limit": 4096,
+    "max_steps_per_episode": 75,
+    "use_custom_prompt": false,
+    "scaffolding": null,
+    "seed": 47,
+    "modal_url": null,
+    "vllm_url": null,
+    "level_name": "volcano",
+    "_cli_values": {
+      "game_name": null,
+      "config_root_dir": "gamingagent/configs",
+      "model_name": "deepseek-chat",
+      "harness": false,
+      "multiagent_arg": "single",
+      "num_runs": 5,
+      "observation_mode": "text",
+      "max_memory": 10,
+      "use_reflection": true,
+      "use_perception": false,
+      "use_summary": false,
+      "token_limit": 4096,
+      "max_steps_per_episode": 75,
+      "use_custom_prompt": false,
+      "scaffolding": null,
+      "seed": null,
+      "modal_url": null,
+      "vllm_url": null,
+      "level_name": "volcano"
+    },
+    "_yaml_defaults": {
+      "game_name": "baba_is_you",
+      "num_runs": 3,
+      "max_steps_per_episode": 150,
+      "seed": 42,
+      "token_limit": 4096,
+      "harness": true,
+      "model_name": "gpt-4o-mini",
+      "observation_mode": "text",
+      "use_custom_prompt": false,
+      "use_reflection": true,
+      "use_perception": false,
+      "use_summary": false,
+      "max_memory": 10
+    }
+  },
+  "individual_run_results": [
+    {
+      "run_id": 1,
+      "score": 0.0,
+      "steps": 22,
+      "total_reward_for_episode": -12.100000000000001,
+      "total_perf_score_for_episode": 0.0
+    },
+    {
+      "run_id": 2,
+      "score": 0.0,
+      "steps": 16,
+      "total_reward_for_episode": -11.5,
+      "total_perf_score_for_episode": 0.0
+    },
+    {
+      "run_id": 3,
+      "score": 0.0,
+      "steps": 25,
+      "total_reward_for_episode": -12.4,
+      "total_perf_score_for_episode": 0.0
+    },
+    {
+      "run_id": 4,
+      "score": 0.0,
+      "steps": 11,
+      "total_reward_for_episode": -11.0,
+      "total_perf_score_for_episode": 0.0
+    },
+    {
+      "run_id": 5,
+      "score": 0.0,
+      "steps": 44,
+      "total_reward_for_episode": -14.3,
+      "total_perf_score_for_episode": 0.0
+    }
+  ],
+  "overall_stat_summary": {
+    "final_env_scores": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "steps_taken": {
+      "mean": 23.6,
+      "std": 11.288932633336069,
+      "min": 11,
+      "max": 44,
+      "values": [
+        22,
+        16,
+        25,
+        11,
+        44
+      ]
+    },
+    "total_rewards": {
+      "mean": -12.26,
+      "std": 1.1288932633336068,
+      "min": -14.3,
+      "max": -11.0,
+      "values": [
+        -12.100000000000001,
+        -11.5,
+        -12.4,
+        -11.0,
+        -14.3
+      ]
+    },
+    "total_performance_scores": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  }
+}

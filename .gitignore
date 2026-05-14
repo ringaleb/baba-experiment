@@ -1,0 +1,23 @@
+# Credentials — never commit real keys
+GamingAgent/credentials.sh
+**/.env
+**/.env.local
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor/IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Temporary output files from experiment runs
+*_last_powershell_output.txt
+

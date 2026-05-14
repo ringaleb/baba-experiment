@@ -1,0 +1,41 @@
+{
+  "game_name": "baba_is_you",
+  "model_name": "deepseek-reasoner",
+  "observation_mode": "text",
+  "harness": true,
+  "max_memory": 10,
+  "use_reflection": true,
+  "use_perception": false,
+  "use_summary": false,
+  "scaffolding": null,
+  "cache_dir": "cache\\baba_is_you\\deepseek_reason\\out_of_reach_20260509_232933",
+  "modules": {
+    "base_module": "BaseModule",
+    "perception_module": "PerceptionModule",
+    "memory_module": "MemoryModule",
+    "reasoning_module": "ReasoningModule"
+  },
+  "config": {
+    "base_module": {
+      "system_prompt": "You are an intelligent AI agent playing Baba Is You, a puzzle game where the RULES ARE OBJECTS on the grid that can be pushed and rearranged.\n\nIMPORTANT: You MUST format your response using EXACTLY these two lines:\nthought: [Your reasoning about the current game state and your planned move]\nmove: [action]\n\nWhere [action] MUST be one of exactly: \"up\", \"down\", \"left\", or \"right\".\nDo NOT use any other format. Do NOT use JSON. Start directly with \"thought:\" on the first line.",
+      "prompt": "Baba Is You \u00e2\u20ac\u201d Quick Reference:\n\nOBJECT TYPES:\n- Plain sprites (BABA, FLAG, ROCK, WALL) = physical objects you walk into or push\n- [TEXT] blocks (TEXT_BABA, TEXT_IS, TEXT_YOU, TEXT_WIN) = word blocks that form rules when lined up\n- These are DIFFERENT. Walking into TEXT_FLAG is NOT the same as walking into FLAG.\n\nRULES:\n- Rules form when word blocks line up: NOUN + IS + PROPERTY (horizontal or vertical)\n- Example: TEXT_BABA next to TEXT_IS next to TEXT_YOU \u00e2\u2020\u2019 rule 'BABA IS YOU' is active\n- Rules only exist while the word blocks stay in a valid line\n- Pushing a word block out of line removes that rule immediately\n\nKEY PROPERTIES:\n- YOU = you control this sprite\n- WIN = walk your sprite onto this to win\n- STOP = blocks movement, cannot be passed through\n- PUSH = can be pushed by walking into it; pushing into another PUSH object moves the whole chain as long as the far end of the chain is not blocked\n- DEFEAT = walking onto this loses the level\n- HOT = destroys any MELT object it touches\n- MELT = destroyed on contact with a HOT object\n- SINK = destroyed when any object moves onto it; the object that moved onto it is also destroyed\n\nDIRECTION REFERENCE:\n- right \u00e2\u2020\u2019 col increases (x+1)\n- left  \u00e2\u2020\u2019 col decreases (x-1)\n- down  \u00e2\u2020\u2019 row increases (y+1)\n- up    \u00e2\u2020\u2019 row decreases (y-1)\n\nAVAILABLE ACTIONS: up, down, left, right\nPushing happens automatically when you walk into a pushable object.\n\nCURRENT GAME STATE:\n{textual_representation}\n\nExample responses:\n- thought: BABA IS YOU and FLAG IS WIN are active. I am BABA at (1,4), FLAG is at (9,4). Moving right will push the ROCK at (5,4) and bring me closer to FLAG.\n  move: right\n\n- thought: I am blocked from the FLAG by WALLs. I need to push TEXT_IS to break WALL IS STOP so I can pass through. Moving up toward TEXT_IS at (3,5).\n  move: up\n\n- thought: FLAG IS WIN and I am BABA at (8,4), FLAG is at (9,4). I am one step away. Moving right wins the level.\n  move: right\n\nIMPORTANT \u00e2\u20ac\u201d FORMAT YOUR RESPONSE EXACTLY LIKE THIS:\nthought: [your reasoning here]\nmove: [up/down/left/right]"
+    },
+    "perception_module": {
+      "system_prompt": "You are a visual analysis assistant for Baba Is You. Describe positions of all visible objects. Do not suggest moves.",
+      "prompt": "Analyse the Baba Is You game image and list the positions of all visible objects.\nDistinguish between:\n- Physical sprites: BABA, FLAG, ROCK, WALL, LAVA, WATER, SKULL, TILE\n- Word/text blocks: [BABA], [FLAG], [IS], [YOU], [WIN], [PUSH], [STOP], [DEFEAT], etc.\n\nReport positions as (col, row) with (0,0) at top-left.\nDo not suggest moves or interpret strategy."
+    },
+    "memory_module": {
+      "system_prompt": "",
+      "prompt": "",
+      "reflection": {
+        "system_prompt": "You are an analytical assistant for a Baba Is You AI agent. Generate brief, actionable reflections on recent game state changes. Focus on rule changes, movement effectiveness, and strategic errors. Keep reflections under 80 words.",
+        "prompt": "Analyze the following Baba Is You game history and generate a brief reflection.\n\nPrevious steps (older \u00e2\u2020\u2019 newer):\n{prev_context}\n\nCurrent game state:\n{current_observation}\n\nFocus your reflection on:\n1. Did any rules change? Is BABA IS YOU (or equivalent) still active?\n2. Is the agent repeating moves or stuck in a loop?\n3. Are word blocks being pushed into positions where rules cannot be reformed?\n4. What is the single most important thing to do differently next?\n\nKeep your reflection under 80 words. Be specific about positions."
+      }
+    },
+    "reasoning_module": {
+      "system_prompt": "You are an intelligent AI agent playing Baba Is You. The rules are made of word blocks on the grid \u00e2\u20ac\u201d they can change when pushed.\n\nIMPORTANT: You MUST format your response using EXACTLY these two lines:\nthought: [Your step-by-step reasoning about rules, position, and your planned move]\nmove: [action]\n\nWhere [action] MUST be one of exactly: \"up\", \"down\", \"left\", or \"right\".\nDo NOT use any other format. Start directly with \"thought:\" on the first line.",
+      "prompt": "## Current Baba Is You Board State\n{textual_representation}\n\nPerception analysis:\n{processed_visual_description}\n\nRecent move history:\n{game_trajectory}\n\nReflection on past moves:\n{reflection}\n\n## Decision Task\nUsing the board state above, choose your next move.\n\nKey mechanics reminders:\n- PUSH chain: walking into a PUSH object pushes the whole chain of consecutive PUSH objects, as long as the far end of the chain is not blocked\n- HOT + MELT: if X IS HOT and Y IS MELT, any contact between them destroys both\n- SINK: if X IS SINK, anything that moves onto X destroys both X and the mover\n- Word blocks are always pushable regardless of any active rules\n\nThink through these steps:\n1. RULES: Which rules are active? What are YOU? What is WIN?\n2. POSITION: Where are you? Where is the WIN object?\n3. PATH: Can you walk directly to WIN? Is anything blocking you (STOP objects)?\n4. RULE CHANGE: Would pushing a word block create a better win condition?\n5. DIRECTION CHECK:\n   - right: target col > your col\n   - left:  target col < your col\n   - down:  target row > your row\n   - up:    target row < your row\n6. LOOP CHECK: Are you about to repeat a move that already failed?\n\nExample responses:\n- thought: BABA IS YOU, FLAG IS WIN. I am at (1,4), FLAG at (9,4). Path is clear except ROCK at (5,4) which is PUSH. Moving right pushes ROCK and advances me toward FLAG.\n  move: right\n\n- thought: I am stuck \u00e2\u20ac\u201d WALL IS STOP blocks my path. I can push TEXT_STOP at (2,8) downward to break the WALL IS STOP rule. Moving down toward TEXT_STOP.\n  move: down\n\nIMPORTANT \u00e2\u20ac\u201d FORMAT YOUR RESPONSE EXACTLY LIKE THIS:\nthought: [your step-by-step reasoning]\nmove: [up/down/left/right]"
+    }
+  },
+  "level_file": "D:\\Desktop2019\\Desktop\\CS468\\cs468-project\\baba-experiment\\baba-is-auto\\Resources\\Maps\\out_of_reach.txt"
+}

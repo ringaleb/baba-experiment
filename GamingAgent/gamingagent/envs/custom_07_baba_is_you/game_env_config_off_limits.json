@@ -1,0 +1,13 @@
+{
+  "level_file": "../baba-is-auto/Resources/Maps/off_limits.txt",
+  "max_unchanged_steps_for_termination": 20,
+  "env_init_kwargs": {
+    "max_steps_episode": 75
+  },
+  "action_mapping": {
+    "up": 0,
+    "down": 1,
+    "left": 2,
+    "right": 3
+  }
+}

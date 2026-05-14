@@ -1,0 +1,9 @@
+model,level,n_trials,solve_rate,steps_mean,steps_std,steps_when_solved,steps_when_failed,rule_changes_mean,rule_changes_std,invalid_action_rate
+DeepSeek V4 Flash,Baba Is You,10,1.00,11.90,1.45,11.90,N/A,0.00,0.00,0.00
+DeepSeek V4 Flash,Out of Reach,5,0.00,68.20,9.43,N/A,68.20,0.00,0.00,0.07
+DeepSeek V4 Flash,Volcano,5,0.00,23.60,11.29,N/A,23.60,1.00,0.00,0.01
+DeepSeek V4 Flash,Off Limits,5,0.00,75.00,0.00,N/A,75.00,0.80,0.40,0.03
+DeepSeek V4 Flash (CoT),Baba Is You,10,1.00,10.00,1.48,10.00,N/A,0.00,0.00,0.00
+DeepSeek V4 Flash (CoT),Out of Reach,1,0.00,75.00,0.00,N/A,75.00,0.00,0.00,0.00
+DeepSeek V4 Flash (CoT),Volcano,1,0.00,75.00,0.00,N/A,75.00,0.00,0.00,0.01
+DeepSeek V4 Flash (CoT),Off Limits,1,0.00,75.00,0.00,N/A,75.00,1.00,0.00,0.00

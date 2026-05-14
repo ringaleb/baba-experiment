@@ -1,0 +1,205 @@
+{
+  "settings": {
+    "game_name": "baba_is_you",
+    "config_root_dir": "gamingagent/configs",
+    "model_name": "deepseek-chat",
+    "harness": true,
+    "multiagent_arg": "single",
+    "num_runs": 10,
+    "observation_mode": "text",
+    "max_memory": 10,
+    "use_reflection": true,
+    "use_perception": false,
+    "use_summary": false,
+    "token_limit": 4096,
+    "max_steps_per_episode": 75,
+    "use_custom_prompt": false,
+    "scaffolding": null,
+    "seed": 52,
+    "modal_url": null,
+    "vllm_url": null,
+    "level_name": "baba_is_you",
+    "_cli_values": {
+      "game_name": null,
+      "config_root_dir": "gamingagent/configs",
+      "model_name": "deepseek-chat",
+      "harness": false,
+      "multiagent_arg": "single",
+      "num_runs": 10,
+      "observation_mode": "text",
+      "max_memory": 10,
+      "use_reflection": true,
+      "use_perception": false,
+      "use_summary": false,
+      "token_limit": 4096,
+      "max_steps_per_episode": 75,
+      "use_custom_prompt": false,
+      "scaffolding": null,
+      "seed": null,
+      "modal_url": null,
+      "vllm_url": null,
+      "level_name": "baba_is_you"
+    },
+    "_yaml_defaults": {
+      "game_name": "baba_is_you",
+      "num_runs": 3,
+      "max_steps_per_episode": 150,
+      "seed": 42,
+      "token_limit": 4096,
+      "harness": true,
+      "model_name": "gpt-4o-mini",
+      "observation_mode": "text",
+      "use_custom_prompt": false,
+      "use_reflection": true,
+      "use_perception": false,
+      "use_summary": false,
+      "max_memory": 10
+    }
+  },
+  "individual_run_results": [
+    {
+      "run_id": 1,
+      "score": 1.0,
+      "steps": 12,
+      "total_reward_for_episode": 8.9,
+      "total_perf_score_for_episode": 1.0
+    },
+    {
+      "run_id": 2,
+      "score": 1.0,
+      "steps": 13,
+      "total_reward_for_episode": 8.8,
+      "total_perf_score_for_episode": 1.0
+    },
+    {
+      "run_id": 3,
+      "score": 1.0,
+      "steps": 12,
+      "total_reward_for_episode": 8.9,
+      "total_perf_score_for_episode": 1.0
+    },
+    {
+      "run_id": 4,
+      "score": 1.0,
+      "steps": 12,
+      "total_reward_for_episode": 8.9,
+      "total_perf_score_for_episode": 1.0
+    },
+    {
+      "run_id": 5,
+      "score": 1.0,
+      "steps": 14,
+      "total_reward_for_episode": 8.7,
+      "total_perf_score_for_episode": 1.0
+    },
+    {
+      "run_id": 6,
+      "score": 1.0,
+      "steps": 10,
+      "total_reward_for_episode": 9.1,
+      "total_perf_score_for_episode": 1.0
+    },
+    {
+      "run_id": 7,
+      "score": 1.0,
+      "steps": 10,
+      "total_reward_for_episode": 9.1,
+      "total_perf_score_for_episode": 1.0
+    },
+    {
+      "run_id": 8,
+      "score": 1.0,
+      "steps": 10,
+      "total_reward_for_episode": 9.1,
+      "total_perf_score_for_episode": 1.0
+    },
+    {
+      "run_id": 9,
+      "score": 1.0,
+      "steps": 14,
+      "total_reward_for_episode": 8.7,
+      "total_perf_score_for_episode": 1.0
+    },
+    {
+      "run_id": 10,
+      "score": 1.0,
+      "steps": 12,
+      "total_reward_for_episode": 8.9,
+      "total_perf_score_for_episode": 1.0
+    }
+  ],
+  "overall_stat_summary": {
+    "final_env_scores": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "steps_taken": {
+      "mean": 11.9,
+      "std": 1.445683229480096,
+      "min": 10,
+      "max": 14,
+      "values": [
+        12,
+        13,
+        12,
+        12,
+        14,
+        10,
+        10,
+        10,
+        14,
+        12
+      ]
+    },
+    "total_rewards": {
+      "mean": 8.91,
+      "std": 0.14456832294800961,
+      "min": 8.7,
+      "max": 9.1,
+      "values": [
+        8.9,
+        8.8,
+        8.9,
+        8.9,
+        8.7,
+        9.1,
+        9.1,
+        9.1,
+        8.7,
+        8.9
+      ]
+    },
+    "total_performance_scores": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  }
+}

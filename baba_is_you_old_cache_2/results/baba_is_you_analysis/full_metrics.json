@@ -1,0 +1,94 @@
+{
+  "DeepSeek V4 Flash": {
+    "Baba Is You": {
+      "n_trials": 10,
+      "solve_rate": 1.0,
+      "steps_mean": 11.9,
+      "steps_std": 1.445683229480096,
+      "steps_when_solved": 11.9,
+      "steps_when_failed": null,
+      "rule_changes_mean": 0.0,
+      "rule_changes_std": 0.0,
+      "invalid_action_rate": 0.0
+    },
+    "Out of Reach": {
+      "n_trials": 5,
+      "solve_rate": 0.0,
+      "steps_mean": 68.2,
+      "steps_std": 9.431860898041277,
+      "steps_when_solved": null,
+      "steps_when_failed": 68.2,
+      "rule_changes_mean": 0.0,
+      "rule_changes_std": 0.0,
+      "invalid_action_rate": 0.07166214177978883
+    },
+    "Volcano": {
+      "n_trials": 5,
+      "solve_rate": 0.0,
+      "steps_mean": 23.6,
+      "steps_std": 11.288932633336069,
+      "steps_when_solved": null,
+      "steps_when_failed": 23.6,
+      "rule_changes_mean": 1.0,
+      "rule_changes_std": 0.0,
+      "invalid_action_rate": 0.013636363636363636
+    },
+    "Off Limits": {
+      "n_trials": 5,
+      "solve_rate": 0.0,
+      "steps_mean": 75.0,
+      "steps_std": 0.0,
+      "steps_when_solved": null,
+      "steps_when_failed": 75.0,
+      "rule_changes_mean": 0.8,
+      "rule_changes_std": 0.4,
+      "invalid_action_rate": 0.026666666666666665
+    }
+  },
+  "DeepSeek V4 Flash (CoT)": {
+    "Baba Is You": {
+      "n_trials": 10,
+      "solve_rate": 1.0,
+      "steps_mean": 10.0,
+      "steps_std": 1.4832396974191326,
+      "steps_when_solved": 10.0,
+      "steps_when_failed": null,
+      "rule_changes_mean": 0.0,
+      "rule_changes_std": 0.0,
+      "invalid_action_rate": 0.0
+    },
+    "Out of Reach": {
+      "n_trials": 1,
+      "solve_rate": 0.0,
+      "steps_mean": 75.0,
+      "steps_std": 0.0,
+      "steps_when_solved": null,
+      "steps_when_failed": 75.0,
+      "rule_changes_mean": 0.0,
+      "rule_changes_std": 0.0,
+      "invalid_action_rate": 0.0
+    },
+    "Volcano": {
+      "n_trials": 1,
+      "solve_rate": 0.0,
+      "steps_mean": 75.0,
+      "steps_std": 0.0,
+      "steps_when_solved": null,
+      "steps_when_failed": 75.0,
+      "rule_changes_mean": 0.0,
+      "rule_changes_std": 0.0,
+      "invalid_action_rate": 0.013333333333333334
+    },
+    "Off Limits": {
+      "n_trials": 1,
+      "solve_rate": 0.0,
+      "steps_mean": 75.0,
+      "steps_std": 0.0,
+      "steps_when_solved": null,
+      "steps_when_failed": 75.0,
+      "rule_changes_mean": 1.0,
+      "rule_changes_std": 0.0,
+      "invalid_action_rate": 0.0
+    }
+  }
+}
