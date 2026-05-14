@@ -178,6 +178,8 @@ Also prints four formatted tables to the terminal.
 
 ## Replaying a Trial (Terminal)
 
+> **Prefer the GUI replay** (`replay_gui.py` in `baba-is-auto/Extensions/BabaGUI/`) — it shows the actual game board and is much easier to follow. The terminal replay is useful when you want to inspect thought text or pipe output for scripting.
+
 From `GamingAgent/`:
 
 ```powershell
