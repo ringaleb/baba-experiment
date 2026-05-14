@@ -69,8 +69,8 @@ baba-experiment/
 ## Prerequisites
 
 - **Python 3.11** (the compiled `.pyd` binary is version-locked to 3.11)
-- **Windows x64** (the pre-compiled binary targets `win_amd64`; other platforms need a rebuild — see below)
-- **CMake 3.31.6+** and a **C++17-capable compiler** (only needed if rebuilding pyBaba — any VS 2017+, GCC 7+, or Clang 5+ should work)
+- **Windows x64**
+- **CMake 3.31.6+** and a **C++17-capable compiler** (any VS 2017+, GCC 7+, or Clang 5+)
 - A **DeepSeek API key** from [platform.deepseek.com](https://platform.deepseek.com) (only needed to run new experiments)
 
 ---
@@ -94,7 +94,7 @@ pip install "numpy<2.0"
 pip install zai-sdk grpcio aiohttp
 ```
 
-> **baba-is-auto:** `pip install -U .` invokes `setup.py` which builds pyBaba via CMake and installs it to site-packages. Requires CMake and a C++17 compiler — see [Rebuilding pyBaba](#rebuilding-pybaba).
+> **baba-is-auto:** `pip install -U .` invokes `setup.py` which builds pyBaba via CMake and installs it to site-packages.
 >
 > **GamingAgent:** `--no-deps` skips packages in `pyproject.toml` that require C++ compilation on Windows (`stable-retro`, `vizdoom`, `tile_match_gym`, etc.) and are not needed for this experiment. GamingAgent declares `requires-python = ">=3.10"` but the pre-built pyBaba binary is locked to Python 3.11 — use 3.11.
 >
@@ -108,16 +108,6 @@ $env:DEEPSEEK_API_KEY = "sk-..."
 ```
 
 `credentials.example.sh` is a template you can copy to `credentials.sh` and fill in. `credentials.sh` is gitignored. Note: `.sh` files use `export VAR=value` syntax and must be sourced in bash/WSL/Git Bash — they cannot be dot-sourced in PowerShell.
-
-### 3. Install pyBaba
-
-`pip install -U .` from step 1 already handles this if CMake is available. If you skipped that or want to use the pre-compiled binary directly (Windows Python 3.11 only):
-
-```powershell
-# From baba-experiment/
-$dest = python -c "import sysconfig; print(sysconfig.get_path('purelib'))"
-copy baba-is-auto\pyBaba.cp311-win_amd64.pyd $dest
-```
 
 ---
 
@@ -270,25 +260,6 @@ Controls: **Space** to pause/resume, **R** to restart, **Escape** to quit. Repla
 | `out_of_reach.txt` | 22×16 | Complex | Requires pushing a rock into water (SINK removes both objects), then creating an accessible WIN condition. |
 | `volcano.txt` | 33×18 | Complex | Requires making lava not a threat to reach the flag. |
 | `off_limits.txt` | 24×14 | Complex | Requires creative rule changes to control objects on the other side of the skulls. |
-
----
-
-## Rebuilding pyBaba
-
-Only needed if you're on a different OS, Python version, or have modified the C++ source.
-
-**Requirements:** CMake 3.31.6+ and a C++17-capable compiler (any VS 2017+, GCC 7+, or Clang 5+).
-
-```powershell
-# From baba-is-auto/
-cmake -B build -S . -DPYTHON_EXECUTABLE="C:\Path\To\python.exe"
-cmake --build build --config Release --target pyBaba
-
-# Copy the built extension to where the scripts expect it
-copy build\lib\Release\pyBaba.cp311-win_amd64.pyd pyBaba.cp311-win_amd64.pyd
-```
-
-On Linux/Mac the output file will be `pyBaba.cpython-311-x86_64-linux-gnu.so` or similar — copy that to `baba-is-auto/` and the GUI scripts will find it automatically (they prepend `baba-is-auto/` to `sys.path`).
 
 ---
 
