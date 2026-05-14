@@ -356,7 +356,7 @@ All Baba Is You integration was written from scratch on top of the existing agen
 | `gamingagent/configs/custom_07_baba_is_you/config.yaml` | Agent configuration (harness mode, memory, token limit) |
 | `gamingagent/configs/custom_07_baba_is_you/module_prompts.json` | All LLM prompts for all four agent modules |
 | `lmgame-bench/run_nonthinking.py` | Runs full non-thinking experiment (all levels, all trials) |
-| `lmgame-bench/run_cot.py` | Runs full CoT experiment |
+| `lmgame-bench/run_cot.py` | Runs full CoT experiment (all levels, all trials) |
 | `analyze_results.py` | Post-run analysis pipeline → CSV + JSON files; summary tables printed to terminal |
 | `replay_trial.py` | Terminal step-by-step trial replay with optional ASCII grid |
 | `credentials.example.sh` | API key template (copy to `credentials.sh`, which is gitignored) |
