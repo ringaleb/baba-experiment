@@ -82,7 +82,13 @@ def get_level_file(log_path):
     config_path = os.path.join(run_dir, "agent_config.json")
     with open(config_path) as f:
         cfg = json.load(f)
-    return cfg["level_file"]
+    level_file = cfg["level_file"]
+    if not os.path.isabs(level_file):
+        # Relative paths are stored relative to the GamingAgent root (where runners execute).
+        # Run dir is 4 levels deep: GamingAgent/cache/baba_is_you/{model}/{run}/
+        gamingagent_root = os.path.abspath(os.path.join(run_dir, '..', '..', '..', '..'))
+        level_file = os.path.normpath(os.path.join(gamingagent_root, level_file))
+    return level_file
 
 
 def write_action_txt(actions):
