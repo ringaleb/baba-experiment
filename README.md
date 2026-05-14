@@ -70,7 +70,7 @@ baba-experiment/
 
 - **Python 3.11** (the compiled `.pyd` binary is version-locked to 3.11)
 - **Windows x64** (the pre-compiled binary targets `win_amd64`; other platforms need a rebuild — see below)
-- **CMake 3.31.6+** and **Visual Studio 2022** (only needed if rebuilding pyBaba)
+- **CMake 3.31.6+** and a **C++17-capable compiler** (only needed if rebuilding pyBaba — any VS 2017+, GCC 7+, or Clang 5+ should work)
 - A **DeepSeek API key** from [platform.deepseek.com](https://platform.deepseek.com) (only needed to run new experiments)
 
 ---
@@ -79,7 +79,13 @@ baba-experiment/
 
 ### 1. Install Python dependencies
 
-Run all commands from `GamingAgent/`:
+From `baba-is-auto/`:
+
+```powershell
+pip install -U .
+```
+
+From `GamingAgent/`:
 
 ```powershell
 pip install -e . --no-deps
@@ -88,9 +94,11 @@ pip install "numpy<2.0"
 pip install zai-sdk grpcio aiohttp
 ```
 
-> **Note:** `--no-deps` skips packages in the upstream `pyproject.toml` that require C++ compilation on Windows (stable-retro, vizdoom, etc.) and are not needed for this experiment. The second line manually installs everything that is needed.
+> **baba-is-auto:** `pip install -U .` invokes `setup.py` which builds pyBaba via CMake and installs it to site-packages. Requires CMake and a C++17 compiler — see [Rebuilding pyBaba](#rebuilding-pybaba).
 >
-> `numpy<2.0` is required — NumPy 2.0 removes `np.float_`, which breaks step logging.
+> **GamingAgent:** `--no-deps` skips packages in `pyproject.toml` that require C++ compilation on Windows (`stable-retro`, `vizdoom`, `tile_match_gym`, etc.) and are not needed for this experiment. GamingAgent declares `requires-python = ">=3.10"` but the pre-built pyBaba binary is locked to Python 3.11 — use 3.11.
+>
+> `numpy<2.0` must be installed last — NumPy 2.0 removes `np.float_`, breaking step logging.
 
 ### 2. Set your API key
 
@@ -103,15 +111,13 @@ $env:DEEPSEEK_API_KEY = "sk-..."
 
 ### 3. Install pyBaba
 
-The pre-compiled extension for Windows Python 3.11 is included in the repo. Install it by copying it into site-packages:
+`pip install -U .` from step 1 already handles this if CMake is available. If you skipped that or want to use the pre-compiled binary directly (Windows Python 3.11 only):
 
 ```powershell
 # From baba-experiment/
 $dest = python -c "import sysconfig; print(sysconfig.get_path('purelib'))"
 copy baba-is-auto\pyBaba.cp311-win_amd64.pyd $dest
 ```
-
-If you are on a different OS or Python version, you need to build from source — see [Rebuilding pyBaba](#rebuilding-pybaba) below.
 
 ---
 
@@ -260,10 +266,10 @@ Controls: **Space** to pause/resume, **R** to restart, **Escape** to quit. Repla
 
 | File | Grid | Difficulty | Notes |
 |------|------|-----------|-------|
-| `baba_is_you.txt` | 11×9 | Simple | Both models solved 100%. Straightforward path to FLAG IS WIN. |
-| `out_of_reach.txt` | 22×16 | Complex | Requires pushing a rock into water (ROCK IS SINK interaction). |
-| `volcano.txt` | 33×18 | Complex | BABA IS MELT + LAVA IS HOT active. Must manipulate word blocks to survive. |
-| `off_limits.txt` | 24×14 | Complex | SKULL IS DEFEAT hazards. Requires creative rule changes to reach flag. |
+| `baba_is_you.txt` | 11×9 | Simple | Both models solved 100%. Straightforward path to the flag. |
+| `out_of_reach.txt` | 22×16 | Complex | Requires pushing a rock into water (SINK removes both objects), then creating an accessible WIN condition. |
+| `volcano.txt` | 33×18 | Complex | Requires making lava not a threat to reach the flag. |
+| `off_limits.txt` | 24×14 | Complex | Requires creative rule changes to control objects on the other side of the skulls. |
 
 ---
 
@@ -271,7 +277,7 @@ Controls: **Space** to pause/resume, **R** to restart, **Escape** to quit. Repla
 
 Only needed if you're on a different OS, Python version, or have modified the C++ source.
 
-**Requirements:** CMake 3.31.6+, Visual Studio 2022 (Windows), or GCC/Clang (Linux/Mac).
+**Requirements:** CMake 3.31.6+ and a C++17-capable compiler (any VS 2017+, GCC 7+, or Clang 5+).
 
 ```powershell
 # From baba-is-auto/
