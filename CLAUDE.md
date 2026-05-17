@@ -101,7 +101,7 @@ pyBaba C++ game state
 | `gamingagent/configs/custom_07_baba_is_you/config.yaml` | `agent.model_name` comment is ignored by the runner (explicitly skipped, line 80 of single_agent_runner.py); model is set via `--model_name` CLI arg or the `MODEL` constant in run_nonthinking.py / run_cot.py |
 | `gamingagent/configs/custom_07_baba_is_you/module_prompts.json` | System + user prompts for all 4 modules |
 | `gamingagent/envs/custom_07_baba_is_you/game_env_config.json` | **Active** level config (copied from `game_env_config_{level}.json` by Python runners via shutil.copy) |
-| `gamingagent/envs/custom_07_baba_is_you/game_env_config_{level}.json` | One per level; specifies level file path + action mapping |
+| `gamingagent/envs/custom_07_baba_is_you/game_env_config_{level}.json` | One per level; specifies level file path, action mapping, and `env_init_kwargs.max_steps_episode` (the env's internal truncation limit — must be updated alongside `MAX_STEPS` in the run script; effective limit is whichever is lower) |
 
 ### 4 Test Levels (in `baba-is-auto/Resources/Maps/`)
 
