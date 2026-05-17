@@ -135,14 +135,17 @@ NOUN_TO_ICON = {
 
 def _get_active_rules(game: pyBaba.Game) -> List[str]:
     """
-    Scans the grid for NOUN + IS + PROPERTY sequences (horizontal and vertical).
-    Returns a list of rule strings like ["BABA IS YOU", "FLAG IS WIN"].
+    Scans the grid for NOUN + IS + PROPERTY/NOUN sequences (horizontal and vertical).
+    Returns a list of rule strings like ["BABA IS YOU", "ROCK IS FLAG"].
     Uses plain ObjectType (not ICON_) for noun/property word blocks.
     """
     map_obj = game.GetMap()
     width  = map_obj.GetWidth()
     height = map_obj.GetHeight()
     rules  = []
+
+    # NOUN IS NOUN rules use a noun in the property position
+    PREDICATE_TYPES = {**PROPERTY_TYPES, **NOUN_TYPES}
 
     def cell_match(x, y, type_dict):
         if x < 0 or y < 0 or x >= width or y >= height:
@@ -162,21 +165,21 @@ def _get_active_rules(game: pyBaba.Game) -> List[str]:
         except Exception:
             return False
 
-    # Horizontal: NOUN at (x,y), IS at (x+1,y), PROPERTY at (x+2,y)
+    # Horizontal: NOUN at (x,y), IS at (x+1,y), PROPERTY/NOUN at (x+2,y)
     for y in range(height):
         for x in range(width - 2):
             noun = cell_match(x,     y, NOUN_TYPES)
-            prop = cell_match(x + 2, y, PROPERTY_TYPES)
-            if noun and prop and cell_has_is(x + 1, y):
-                rules.append(f"{noun} IS {prop}")
+            pred = cell_match(x + 2, y, PREDICATE_TYPES)
+            if noun and pred and cell_has_is(x + 1, y):
+                rules.append(f"{noun} IS {pred}")
 
-    # Vertical: NOUN at (x,y), IS at (x,y+1), PROPERTY at (x,y+2)
+    # Vertical: NOUN at (x,y), IS at (x,y+1), PROPERTY/NOUN at (x,y+2)
     for y in range(height - 2):
         for x in range(width):
             noun = cell_match(x, y,     NOUN_TYPES)
-            prop = cell_match(x, y + 2, PROPERTY_TYPES)
-            if noun and prop and cell_has_is(x, y + 1):
-                rules.append(f"{noun} IS {prop}")
+            pred = cell_match(x, y + 2, PREDICATE_TYPES)
+            if noun and pred and cell_has_is(x, y + 1):
+                rules.append(f"{noun} IS {pred}")
 
     return list(set(rules))
 
