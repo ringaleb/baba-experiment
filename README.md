@@ -163,7 +163,7 @@ From `GamingAgent/`:
 python analyze_results.py
 ```
 
-Reads everything in `cache/baba_is_you/` and outputs to `results/baba_is_you_analysis/`:
+Reads everything in `GamingAgent/cache/baba_is_you/` (the active cache, not the archived `baba_is_you_old_cache_*/` dirs) and outputs to `results/baba_is_you_analysis/`:
 
 - `results_summary.csv` — solve rate, steps, rule changes, invalid action rate per model/level
 - `full_metrics.json` — nested per-episode metrics
@@ -236,7 +236,7 @@ python play.py ../../Resources/Maps/volcano.txt
 python play.py ../../Resources/Maps/off_limits.txt
 ```
 
-Controls: arrow keys to move, **R** to restart, **Escape** to quit.
+Controls: arrow keys to move, **R** to restart, **Escape** to quit. Win/lose overlay shown on game end.
 
 ### GUI replay of a recorded trial
 
@@ -248,7 +248,7 @@ python replay_gui.py ../../../baba_is_you_old_cache_2/deepseek_chat/baba_is_you_
 python replay_gui.py <path_to_episode_log.jsonl>
 ```
 
-Controls: **Space** to pause/resume, **R** to restart, **Escape** to quit. Replays at 5 steps/second.
+Controls: **Space** to pause/resume (starts paused — press Space to begin), **R** to restart, **Escape** to quit. Replays at 5 steps/second.
 
 ---
 
@@ -313,7 +313,7 @@ This project is built on two upstream projects, both modified for this experimen
 
 ### baba-is-auto (upstream: [utilforever/baba-is-auto](https://github.com/utilforever/baba-is-auto))
 
-The original simulator was missing several game mechanics and had no Python GUI. The following were added:
+The original simulator was missing several game mechanics. The existing BabaGUI could auto-play a static action.txt file but lacked interactive play and replay from agent experiment logs. The following were added:
 
 **C++ engine changes:**
 
@@ -335,7 +335,7 @@ The upstream repo includes `Extensions/BabaGUI/` with `main.py`, `config.py`, `s
 |------|--------|
 | `main.py` | Changed hardcoded level from `off_limits_bug.txt` → `off_limits.txt` |
 | `play.py` | **Added** — interactive player; load any level via CLI arg, arrow keys to move, R to restart, win/lose overlay, render-priority pass ordering |
-| `replay_gui.py` | **Added** — GUI replay of recorded agent trials from JSONL logs; Space to pause/resume, R to restart |
+| `replay_gui.py` | **Added** — GUI replay of recorded agent trials from JSONL logs; reads level from `agent_config.json`, starts paused (Space to resume), R to restart, 3-pass render priority |f
 
 `config.py` and `sprites.py` are unchanged from upstream.
 
