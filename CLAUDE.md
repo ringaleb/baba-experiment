@@ -96,12 +96,18 @@ pyBaba C++ game state
 
 ### Key Configuration Files
 
-| File | What to change |
+| File / Location | What to change |
 |------|---------------|
-| `gamingagent/configs/custom_07_baba_is_you/config.yaml` | `agent.model_name` comment is ignored by the runner (explicitly skipped, line 80 of single_agent_runner.py); model is set via `--model_name` CLI arg or the `MODEL` constant in run_nonthinking.py / run_cot.py |
+| `lmgame-bench/run_nonthinking.py` / `run_cot.py` — `MODEL` | Model alias: `deepseek-chat` (non-thinking) or `deepseek-reasoner` (CoT) |
+| `lmgame-bench/run_nonthinking.py` / `run_cot.py` — `MAX_STEPS` | Outer harness step limit — to change the step budget, update this and `max_steps_episode` in each level config to the same value; if they differ, the lower one takes effect |
+| `lmgame-bench/run_nonthinking.py` / `run_cot.py` — `LEVEL_RUNS` | Which levels to run and how many trials each (e.g. remove levels or reduce trial counts to run a subset) |
+| `gamingagent/configs/custom_07_baba_is_you/config.yaml` — `token_limit` | Max tokens per LLM response (default 4096); increase if model responses are being cut off |
+| `gamingagent/configs/custom_07_baba_is_you/config.yaml` — `max_memory` | Steps of trajectory history sent to the model per turn (default 10) |
+| `gamingagent/configs/custom_07_baba_is_you/config.yaml` | `agent.model_name` comment is ignored by the runner (explicitly skipped, line 80 of single_agent_runner.py); model is set via `MODEL` in the run scripts |
 | `gamingagent/configs/custom_07_baba_is_you/module_prompts.json` | System + user prompts for all 4 modules |
 | `gamingagent/envs/custom_07_baba_is_you/game_env_config.json` | **Active** level config (copied from `game_env_config_{level}.json` by Python runners via shutil.copy) |
-| `gamingagent/envs/custom_07_baba_is_you/game_env_config_{level}.json` | One per level; specifies level file path, action mapping, and `env_init_kwargs.max_steps_episode` (the env's internal truncation limit — must be updated alongside `MAX_STEPS` in the run script; effective limit is whichever is lower) |
+| `gamingagent/envs/custom_07_baba_is_you/game_env_config_{level}.json` — `env_init_kwargs.max_steps_episode` | Env's internal truncation limit — to change the step budget, update this and `MAX_STEPS` in the run script to the same value; if they differ, the lower one takes effect |
+| `gamingagent/envs/custom_07_baba_is_you/game_env_config_{level}.json` — `max_unchanged_steps_for_termination` | Stuck detection threshold (default 20): if the game state hash is identical for this many consecutive steps the episode is terminated early (`terminated=True` in logs, distinct from step-limit truncation) |
 
 ### 4 Test Levels (in `baba-is-auto/Resources/Maps/`)
 
