@@ -352,7 +352,7 @@ All Baba Is You integration was written from scratch on top of the existing agen
 | File | Purpose |
 |------|---------|
 | `gamingagent/envs/custom_07_baba_is_you/babaIsYouEnv.py` | Full gym environment: wraps pyBaba, builds text observations, detects win/lose |
-| `gamingagent/envs/custom_07_baba_is_you/game_env_config_*.json` | Per-level configs with level file path and action mapping |
+| `gamingagent/envs/custom_07_baba_is_you/game_env_config_*.json` | Per-level configs: level file path, action mapping, and `env_init_kwargs.max_steps_episode` (the env's internal step cap — to change the step limit, update this **and** `MAX_STEPS` in the run script; effective limit is whichever is lower) |
 | `gamingagent/configs/custom_07_baba_is_you/config.yaml` | Agent configuration (harness mode, memory, token limit) |
 | `gamingagent/configs/custom_07_baba_is_you/module_prompts.json` | All LLM prompts for all four agent modules |
 | `lmgame-bench/run_nonthinking.py` | Runs full non-thinking experiment (all levels, all trials) |
